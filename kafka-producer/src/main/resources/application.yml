@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: kafka-producer
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 2147483647
+      compression-type: snappy
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 5
+        delivery.timeout.ms: 120000
+        linger.ms: 10
+        batch.size: 16384
+        spring.json.add.type.headers: false
+
+app:
+  api:
+    base-url: ${API_PROVIDER_URL}
+    symbols: ${API_PROVIDER_SYMBOLS}
+    fetch-interval-ms: 10000
+  kafka:
+    topics:
+      crypto-prices:
+        name: ${KAFKA_TOPIC_CRYPTO_PRICES_NAME}
+        partitions: ${KAFKA_TOPIC_CRYPTO_PRICES_PARTITIONS}
+        replication-factor: ${KAFKA_TOPIC_CRYPTO_PRICES_REPLICATION_FACTOR}
