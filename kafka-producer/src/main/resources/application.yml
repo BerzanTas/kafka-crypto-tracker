@@ -24,7 +24,7 @@ app:
   api:
     base-url: ${API_PROVIDER_URL}
     symbols: ${API_PROVIDER_SYMBOLS}
-    fetch-interval-ms: 10000
+    fetch-interval-ms: 20000
   kafka:
     topics:
       crypto-prices:
